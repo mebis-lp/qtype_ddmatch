@@ -41,13 +41,15 @@ class qtype_ddmatch_test extends advanced_testcase {
     /** @var qtype_ddmatch instance of the question type class to test. */
     protected $qtype;
 
-    protected function setUp() {
+    // MBS-HACK (Thomas Ludwig): add void to setUp and tearDown for phpunit (MBS-5688).
+    protected function setUp(): void {
         $this->qtype = new qtype_ddmatch();
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->qtype = null;
     }
+    // --- MBS-HACK.
 
     protected function get_test_question_data() {
         global $USER;
