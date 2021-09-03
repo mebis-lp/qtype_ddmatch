@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy Subsystem implementation for format_tabtopics.
+ * Privacy Subsystem implementation for qtype_ddmatch.
  *
  * @package    qtype_ddmatch
- * @copyright  2019 Amr Hourani <amr.hourani@let.ethz.ch>
+ * @copyright  2019 Amr Hourani <amr.hourani@let.ethz.ch>, 2021 Thomas Ludwig, ISB
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,19 +27,25 @@ namespace qtype_ddmatch\privacy;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The format_tabtopics
+ * Privacy main class.
+ *
+ * @package    qtype_ddmatch
+ * @copyright  2019 Amr Hourani <amr.hourani@let.ethz.ch>, 2021 Thomas Ludwig, ISB
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
-class provider implements \core_privacy\local\metadata\null_provider
-{
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    // To provide php 5.6 (33_STABLE) and up support.
+    use \core_privacy\local\legacy_polyfill;
+
     /**
      * Get the language string identifier with the component's language
      * file to explain why this plugin stores no data.
      *
      * @return string
      */
-    public static function get_reason(): string
-    {
+    public static function get_reason() : string {
         return 'privacy:metadata';
     }
 }
