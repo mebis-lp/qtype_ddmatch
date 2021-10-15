@@ -68,6 +68,7 @@ class qtype_ddmatch_test extends advanced_testcase {
         $q->length = 1;
         $q->stamp = make_unique_id_code();
         $q->version = make_unique_id_code();
+        $q->idnumber = 0; // MBS-HACK (Thomas Ludwig): fix unit tests (MBS-5836).
         $q->hidden = 0;
         $q->timecreated = time();
         $q->timemodified = time();
@@ -118,7 +119,10 @@ class qtype_ddmatch_test extends advanced_testcase {
 
     public function test_get_random_guess_score() {
         $q = $this->get_test_question_data();
-        $this->assertEquals(0.3333333, $this->qtype->get_random_guess_score($q), '', 0.0000001);
+        //+++ MBS-HACK (Thomas Ludwig): fix unit tests (MBS-5836).
+        // $this->assertEquals(0.3333333, $this->qtype->get_random_guess_score($q), '', 0.0000001);
+        $this->assertEquals(0.3333333, number_format((float) $this->qtype->get_random_guess_score($q), 7));
+        //--- MBS-HACK.
     }
 
     public function test_get_possible_responses() {

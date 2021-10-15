@@ -135,13 +135,19 @@ class qtype_ddmatch_question_test extends advanced_testcase {
         $ddmatch = qtype_ddmatch_test_helper::make_a_ddmatching_question();
         $ddmatch->start_attempt(new question_attempt_step(), 1);
         $qsummary = $ddmatch->get_question_summary();
-        $this->assertRegExp('/' . preg_quote($ddmatch->questiontext) . '/', $qsummary);
+
+        //+++ MBS-HACK (Thomas Ludwig): fix unit tests (MBS-5836).
+        // $this->assertRegExp('/' . preg_quote($ddmatch->questiontext) . '/', $qsummary);
+        $this->assertMatchesRegularExpression('/' . preg_quote($ddmatch->questiontext) . '/', $qsummary);
         foreach ($ddmatch->stems as $stem) {
-            $this->assertRegExp('/' . preg_quote($stem) . '/', $qsummary);
+            // $this->assertRegExp('/' . preg_quote($stem) . '/', $qsummary);
+            $this->assertMatchesRegularExpression('/' . preg_quote($stem) . '/', $qsummary);
         }
         foreach ($ddmatch->choices as $choice) {
-            $this->assertRegExp('/' . preg_quote($choice) . '/', $qsummary);
+            // $this->assertRegExp('/' . preg_quote($choice) . '/', $qsummary);
+            $this->assertMatchesRegularExpression('/' . preg_quote($choice) . '/', $qsummary);
         }
+        //--- MBS-HACK.
     }
 
     public function test_summarise_response() {
@@ -151,7 +157,10 @@ class qtype_ddmatch_question_test extends advanced_testcase {
 
         $summary = $ddmatch->summarise_response(array('sub0' => 2, 'sub1' => 1));
 
-        $this->assertRegExp('/Dog -> \w+; Frog -> \w+/', $summary);
+        //+++ MBS-HACK (Thomas Ludwig): fix unit tests (MBS-5836).
+        //$this->assertRegExp('/Dog -> \w+; Frog -> \w+/', $summary);
+        $this->assertMatchesRegularExpression('/Dog -> \w+; Frog -> \w+/', $summary);
+        //---MBS-HACK.
     }
 
     public function test_classify_response() {
